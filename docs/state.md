@@ -1,6 +1,7 @@
 # Stand
 
-Stand: 2026-11-24 · Version 2 (lokal, noch nicht online)
+Stand: 2026-11-24 · Version 2 · Vorschau online: https://samataisin.github.io/sisters-beauty-room/
+(GitHub Pages aus öffentlichem Repo `samataisin/sisters-beauty-room`, Branch `main`. Vorschau mit `noindex` + `robots.txt Disallow`; vor dem echten Start beides entfernen und Impressum vervollständigen.)
 
 ## Fertig und geprüft (im Browser, Desktop 1440 px und Handy 375 px)
 
@@ -26,7 +27,7 @@ Stand: 2026-11-24 · Version 2 (lokal, noch nicht online)
 - Echtes Logo als SVG/PNG (aktuell Text-Logo „Sisters / Beauty Room“).
 - Gesichtskosmetik-Karte nutzt das Foto von Jessica → eigenes Bild (siehe `bild-prompts.md`).
 - Preise für Wimpern und Permanent Make-up fehlen.
-- Hosting/Domain (Vorschlag: GitHub Pages oder Netlify, kostenlos).
+- Eigene Domain (optional, ca. 1–2 €/Monat), dann in GitHub Pages eintragen.
 - Pencil: Seite in eine .pen-Datei importieren, sobald dort ein Dokument offen ist.
 
 ## Nicht getestet
