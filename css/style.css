@@ -257,6 +257,8 @@ body::after {
 .member__role { font-size: .7rem; letter-spacing: .24em; text-transform: uppercase; color: var(--gold); }
 .member h3 { font-family: var(--serif); font-size: 1.9rem; color: var(--espresso); margin: .2rem 0 .5rem; }
 .member p { color: var(--muted); font-size: .95em; }
+.member__body--duo { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+@media (max-width: 600px) { .member__body--duo { grid-template-columns: 1fr; } }
 
 /* ============ Kontakt ============ */
 .contact { padding-top: 0; }

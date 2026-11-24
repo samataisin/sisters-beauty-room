@@ -18,11 +18,11 @@ Stand: 2026-11-24 · Version 2 · Vorschau online: https://samataisin.github.io/
 
 ## Offen
 
-- E-Mail-Adresse für Impressum und Datenschutz.
-- USt-IdNr. (falls vorhanden), Hosting-Anbieter in Datenschutz eintragen.
+- ~~E-Mail~~ erledigt (jessikarich@gmx.de).
+- USt-IdNr. klären (Abschnitt im Impressum vorerst entfernt; nur nötig, wenn vorhanden). Hosting (GitHub Pages) ist eingetragen.
 - Datenschutz-Entwurf prüfen lassen (Generator oder fachkundig).
 - Öffnungszeiten (aktuell „Termine nach Vereinbarung“).
-- Team: Wer ist auf dem Foto (Katharina und Anastasia bestätigen)? Schwerpunkte der beiden. Eigene Fotos je Person wären besser.
+- Team: Schwerpunkte eingetragen (Jessica Kosmetik, Katharina Wimpern/PMU, Anastasia Maniküre/Pediküre). Wer auf dem Foto links/rechts ist, offen. Einzelfotos wären besser.
 - Beschreibungstexte von Jessica gegenlesen lassen (fachlich richtig? Produkte bei Intens-Bright?).
 - Echtes Logo als SVG/PNG (aktuell Text-Logo „Sisters / Beauty Room“).
 - Gesichtskosmetik-Karte nutzt das Foto von Jessica → eigenes Bild (siehe `bild-prompts.md`).
