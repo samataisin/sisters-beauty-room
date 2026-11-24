@@ -13,7 +13,7 @@ Stand: 2026-11-24 · Version 2 · Vorschau online: https://samataisin.github.io/
 - Team-Abschnitt statt „Über Jessica“: Jessica (Inhaberin, kurz) und Katharina & Anastasia.
 - Galerie horizontal gepinnt (Desktop), Raster (Handy).
 - Mobiles Vollbild-Menü, fester WhatsApp-Knopf auf dem Handy, Kopfleiste mit Hintergrund ab Scroll (auch ohne Animationen).
-- Reduzierte Bewegung: Animationen zeigen ein Standbild.
+- Animationen laufen auf allen Geräten. Bei „wenig Bewegung“ sanfter Modus (Galerie als Raster, kein Nachgleiten, kein Parallax).
 - Keine Konsolenfehler, keine externen Anfragen, kein horizontales Scrollen auf dem Handy.
 
 ## Offen

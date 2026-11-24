@@ -3,11 +3,12 @@ import { createScene } from "./treatments.js";
 
 const root = document.documentElement;
 root.classList.add("js");
-// ?motion=1 erzwingt Animationen (nur zum Testen, z. B. wenn Windows-Animationen aus sind)
-const forceMotion = new URLSearchParams(location.search).has("motion");
-const reducedMotion = !forceMotion && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-if (reducedMotion) root.classList.add("reduced-motion");
-if (forceMotion) root.classList.add("force-motion");
+// Animationen laufen überall (Wunsch Samat, 2026-11-24). Bei der Einstellung „wenig Bewegung“
+// (Windows/iPhone) gilt ein sanfter Modus: kein Nachgleiten beim Scrollen, keine gepinnte
+// Galerie, kein Parallax, kein Kippen. ?motion=1 schaltet auch das volle Programm ein (Test).
+const calmMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  && !new URLSearchParams(location.search).has("motion");
+if (calmMotion) root.classList.add("calm-motion");
 
 const { gsap, ScrollTrigger, Lenis } = window;
 const cfg = window.SITE_CONFIG || {};
@@ -23,7 +24,7 @@ document.querySelectorAll("[data-year]").forEach((el) => (el.textContent = new D
 let hero3d = null;
 const canvas = document.getElementById("hero3d");
 try {
-  hero3d = canvas ? initHero3D(canvas, { reducedMotion }) : null;
+  hero3d = canvas ? initHero3D(canvas) : null;
 } catch (err) {
   console.warn("3D-Szene konnte nicht starten:", err);
 }
@@ -60,7 +61,7 @@ function selectTab(tab) {
     const panel = document.getElementById(t.getAttribute("aria-controls"));
     panel.hidden = !active;
     panel.classList.toggle("is-active", active);
-    if (active && gsap && !reducedMotion) {
+    if (active && gsap) {
       gsap.fromTo(panel.querySelectorAll("li"), { opacity: 0, y: 16 }, { opacity: 1, y: 0, duration: 0.6, stagger: 0.04, ease: "power3.out" });
     }
   });
@@ -176,19 +177,17 @@ const fxBuilders = {
   }
 };
 
-if (!reducedMotion) {
-  Object.entries(FX).forEach(([id, list]) => {
-    const fx = document.getElementById(id)?.querySelector(".bg-fx");
-    if (!fx) return;
-    list.forEach((entry) => {
-      const [name, arg] = entry.split(":");
-      fx.appendChild(fxBuilders[name](arg));
-    });
+Object.entries(FX).forEach(([id, list]) => {
+  const fx = document.getElementById(id)?.querySelector(".bg-fx");
+  if (!fx) return;
+  list.forEach((entry) => {
+    const [name, arg] = entry.split(":");
+    fx.appendChild(fxBuilders[name](arg));
   });
-}
+});
 
 /* Goldschein folgt der Maus (nur mit Maus, nicht auf Touch) */
-if (!reducedMotion && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+if (window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
   const glow = document.createElement("div");
   glow.className = "cursor-glow";
   glow.setAttribute("aria-hidden", "true");
@@ -223,14 +222,14 @@ function toggleTreat(btn, force) {
   const open = force ?? btn.getAttribute("aria-expanded") !== "true";
   if (open === (btn.getAttribute("aria-expanded") === "true")) return;
   const anim = detail.querySelector(".treat__anim");
-  const animate = gsap && !reducedMotion;
+  const animate = !!gsap;
 
   if (open) {
     // Nur ein Eintrag pro Liste offen
     btn.closest(".price-list").querySelectorAll('.treat__row[aria-expanded="true"]').forEach((b) => toggleTreat(b, false));
     btn.setAttribute("aria-expanded", "true");
     detail.hidden = false;
-    if (!scenes.has(anim)) scenes.set(anim, createScene(anim, { reducedMotion }));
+    if (!scenes.has(anim)) scenes.set(anim, createScene(anim));
     scenes.get(anim)?.play();
     if (animate) {
       gsap.fromTo(detail, { height: 0, opacity: 0 }, { height: "auto", opacity: 1, duration: 0.6, ease: "power3.out", onComplete: refreshLayout });
@@ -261,7 +260,7 @@ function hidePreloader() {
   document.body.classList.remove("is-loading");
   document.querySelector(".preloader")?.remove();
 }
-if (!gsap || !ScrollTrigger || reducedMotion) {
+if (!gsap || !ScrollTrigger) {
   document.querySelectorAll("[data-reveal]").forEach((el) => { el.style.opacity = 1; el.style.transform = "none"; });
   hidePreloader();
 } else {
@@ -272,7 +271,7 @@ function initMotion() {
   gsap.registerPlugin(ScrollTrigger);
 
   /* Sanftes Scrollen (nur Maus/Trackpad; Touch scrollt nativ) */
-  if (Lenis) {
+  if (Lenis && !calmMotion) {
     lenis = new Lenis({ duration: 1.15, smoothWheel: true });
     lenis.on("scroll", ScrollTrigger.update);
     gsap.ticker.add((time) => lenis.raf(time * 1000));
@@ -343,7 +342,7 @@ function initMotion() {
   const mm = gsap.matchMedia();
 
   /* Desktop: Galerie horizontal, Bild-Parallax, 3D-Tilt der Karten */
-  mm.add("(min-width: 861px)", () => {
+  if (!calmMotion) mm.add("(min-width: 861px)", () => {
     const pin = document.querySelector(".gallery__pin");
     const gTrack = document.querySelector(".gallery__track");
     const distance = () => Math.max(0, gTrack.scrollWidth + gTrack.offsetLeft - window.innerWidth + 80);
@@ -383,7 +382,7 @@ function initMotion() {
   });
 
   /* Handy: Galerie-Bilder einzeln einblenden */
-  mm.add("(max-width: 860px)", () => {
+  mm.add(calmMotion ? "all" : "(max-width: 860px)", () => {
     gsap.utils.toArray(".shot").forEach((shot, i) => {
       gsap.from(shot, { opacity: 0, y: 30, duration: 0.9, delay: (i % 2) * 0.08, ease: "power3.out", scrollTrigger: { trigger: shot, start: "top 92%" } });
     });

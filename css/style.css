@@ -363,7 +363,6 @@ body::after {
 
 /* ============ Reveal-Grundzustand (nur wenn JS läuft) ============ */
 .js [data-reveal] { opacity: 0; transform: translateY(40px); }
-.reduced-motion [data-reveal] { opacity: 1 !important; transform: none !important; }
 
 /* ============ Unterseiten (Impressum, Datenschutz) ============ */
 .legal { max-width: 820px; margin: 0 auto; padding: 140px var(--pad) 90px; }
@@ -411,7 +410,10 @@ body::after {
   .treat__anim { max-width: 360px; }
   .contact__actions .btn { flex: 1 1 100%; }
 }
-@media (prefers-reduced-motion: reduce) {
-  html:not(.force-motion) *, html:not(.force-motion) *::before, html:not(.force-motion) *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
-  html:not(.force-motion) .marquee__track { animation: none; }
-}
+/* Sanfter Modus (Einstellung „wenig Bewegung“): Galerie als Raster statt seitlich gepinnt */
+.calm-motion .gallery__pin { height: auto; flex-direction: column; align-items: stretch; padding: 90px var(--pad); }
+.calm-motion .gallery__intro { flex: none; }
+.calm-motion .gallery__track { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; transform: none !important; }
+.calm-motion .shot { width: auto; }
+.calm-motion .shot img, .calm-motion .shot--tall img { aspect-ratio: 1; }
+@media (max-width: 860px) { .calm-motion .gallery__track { grid-template-columns: 1fr 1fr; } }

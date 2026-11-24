@@ -26,6 +26,7 @@ Auftraggeber/Betreuer: Samat. Status und offene Punkte: [docs/state.md](docs/sta
 ## Regeln
 
 - Keine Heilwerbung (HWG/UWG): keine Heilversprechen, keine medizinischen Wirkungsaussagen. Kein Haut-Vorher/Nachher bei Gesichtsbehandlungen (auch nicht animiert), nur Ablauf. Vorher/Nachher nur für Nagel-/Fußdesign.
-- Leistung vor Effekt: 3D pausiert außerhalb des Sichtbereichs, weniger Geometrie auf dem Handy, `prefers-reduced-motion` wird respektiert.
+- Leistung vor Effekt: 3D pausiert außerhalb des Sichtbereichs, weniger Geometrie auf dem Handy.
+- Animationen laufen überall (Entscheidung Samat, 2026-11-24). Bei `prefers-reduced-motion` gilt nur ein sanfter Modus (Klasse `calm-motion`): kein Lenis, keine gepinnte Galerie (Raster), kein Parallax/Tilt.
 - Lokal starten: `python -m http.server 5173 --directory C:\Users\aisin\Dev\jessica-website` → http://localhost:5173 (ES-Module laufen nicht über `file://`).
-- Animationen trotz Windows-Einstellung „Animationen aus“ testen: `http://localhost:5173/?motion=1` (wirkt auf JS und CSS über die Klasse `force-motion`).
+- Volles Programm trotz Windows-Einstellung „Animationen aus“ testen: `http://localhost:5173/?motion=1`.
