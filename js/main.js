@@ -316,15 +316,7 @@ function initMotion() {
     scrollTrigger: { trigger: ".hero", start: "top top", end: "bottom top", scrub: true }
   });
 
-  /* Laufband: Tempo folgt der Scroll-Geschwindigkeit */
-  const track = document.querySelector(".marquee__track");
-  ScrollTrigger.create({
-    trigger: ".marquee", start: "top bottom", end: "bottom top",
-    onUpdate(self) {
-      const v = Math.min(Math.abs(self.getVelocity()) / 1500, 3);
-      track.style.animationDuration = `${38 / (1 + v)}s`;
-    }
-  });
+  /* Laufband: läuft gleichmäßig per CSS, unabhängig vom Scrollen (Wunsch Samat) */
 
   /* Einblenden beim Scrollen */
   ScrollTrigger.batch("[data-reveal]", {
